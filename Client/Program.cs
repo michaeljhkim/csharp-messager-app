@@ -17,6 +17,7 @@ List<string> outgoingMessages = new List<string>();
 // Task to continuously read input from the console and add it to the outgoingMessages list
 var input_messages = new TaskFactory().StartNew(async () => {
     while (true) {
+        Console.Write("Enter Message: "); 
         string msg = Console.ReadLine() ?? string.Empty;
         outgoingMessages.Add(msg);
     }
@@ -36,7 +37,7 @@ void ReadPackets() {
             byte[] buffer = new byte[client.ReceiveBufferSize];
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
             (int opcode, string message) = inStream.ParseMessagePacket(buffer.Take(bytesRead).ToArray());
-            Console.WriteLine($"Received: [{opcode}] - {message}");
+            Console.WriteLine($"\nReceived: [{opcode}] - {message}");
         }
     }
 }
